@@ -43,7 +43,7 @@ export interface ICashierAttributes {
   id: number;
   name: string;
   age: number;
-  sex: Gender;
+  gender: Gender;
   yearsOfExperience: number;
   isWorkingNow: boolean;
   previousAtb: Address[];
@@ -54,7 +54,10 @@ export interface ICashierAttributes {
 }
 
 export interface ICashierCreationAttributes
-  extends Optional<ICashierAttributes, 'id' | 'shopId' | 'cashierRegisterId'> {}
+  extends Optional<
+    ICashierAttributes,
+    'id' | 'shopId' | 'cashierRegisterId' | 'previousAtb' | 'previousJob'
+  > {}
 
 export interface ICashRegisterAttributes {
   id: number;
@@ -69,7 +72,7 @@ export interface IShopAttributes {
   id: number;
   title: Shop;
   locality: Locality;
-  street: Address;
+  address: Address;
 }
 
 export interface IShopCreationAttributes
