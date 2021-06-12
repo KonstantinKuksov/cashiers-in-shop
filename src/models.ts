@@ -15,6 +15,13 @@ export enum DayOfWeek {
   Sunday = 'Sunday',
 }
 
+export enum Shedule {
+  First = '07:00 - 15:00',
+  Second = '15:00 - 23:00',
+  Third = '23:00 - 07:00',
+  AroundTheClock = '00:00 - 24:00',
+}
+
 export enum Shop {
   ATB = 'ATB',
   Silpo = 'Silpo',
@@ -40,36 +47,34 @@ export enum Address {
 }
 
 export interface ICashierAttributes {
-  id: number;
-  name: string;
-  age: number;
-  gender: Gender;
-  yearsOfExperience: number;
-  isWorkingNow: boolean;
-  previousAtb: Address[];
-  outputDays: DayOfWeek[];
-  previousJob: Shop[];
-  shopId: number;
-  cashierRegisterId: number;
+  id?: number;
+  name?: string;
+  age?: number;
+  gender?: Gender;
+  yearsOfExperience?: number;
+  isWorkingNow?: boolean;
+  workShedule?: Shedule;
+  previousAtb?: Address[];
+  outputDays?: DayOfWeek[];
+  previousJob?: Shop[];
+  shopId?: number;
+  cashRegister?: number;
 }
 
 export interface ICashierCreationAttributes
-  extends Optional<
-    ICashierAttributes,
-    'id' | 'shopId' | 'cashierRegisterId' | 'previousAtb' | 'previousJob'
-  > {}
+  extends Optional<ICashierAttributes, 'id'> {}
 
 export interface ICashRegisterAttributes {
-  id: number;
+  id?: number;
   number: number;
   shopId: number;
 }
 
 export interface ICashRegisterCreationAttributes
-  extends Optional<ICashRegisterAttributes, 'id' | 'shopId'> {}
+  extends Optional<ICashRegisterAttributes, 'id'> {}
 
 export interface IShopAttributes {
-  id: number;
+  id?: number;
   title: Shop;
   locality: Locality;
   address: Address;
