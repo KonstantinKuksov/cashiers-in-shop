@@ -1,13 +1,6 @@
-import { DataTypes, ModelDefined, Sequelize, Op, QueryTypes } from 'sequelize';
+import { DataTypes, ModelDefined, Sequelize, QueryTypes } from 'sequelize';
 import { Request, Response } from 'express';
-import {
-  Address,
-  DayOfWeek,
-  ICashierAttributes,
-  ICashierCreationAttributes,
-  Shedule,
-  Shop,
-} from './models';
+import { ICashierAttributes, ICashierCreationAttributes } from './models';
 
 export const sequelize = new Sequelize(
   `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
@@ -72,7 +65,6 @@ class CashierTable {
     const id = req.params.id;
     const cashier = await Cashier.findOne({
       where: { id },
-      attributes: ['name'],
     });
     return res.json(cashier);
   }

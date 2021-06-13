@@ -1,14 +1,5 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
 import { cashierTable, sequelize } from './db';
-import {
-  Address,
-  DayOfWeek,
-  Gender,
-  ICashRegisterAttributes,
-  Locality,
-  Shedule,
-  Shop,
-} from './models';
 
 const app: Application = express();
 const PORT = process.env.PORT || 5500;
