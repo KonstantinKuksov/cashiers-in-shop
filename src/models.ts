@@ -51,14 +51,14 @@ export interface ICashierAttributes {
   name?: string;
   age?: number;
   gender?: Gender;
-  yearsOfExperience?: number;
-  isWorkingNow?: boolean;
-  workShedule?: Shedule;
-  previousAtb?: Address[];
-  outputDays?: DayOfWeek[];
-  previousJob?: Shop[];
-  shopId?: number;
-  cashRegister?: number;
+  years_of_experience?: number;
+  is_working_now?: boolean;
+  work_shedule?: Shedule;
+  previous_atb?: Address[];
+  work_days?: DayOfWeek[];
+  previous_job?: Shop[];
+  shop_id?: number;
+  cash_register?: number;
 }
 
 export interface ICashierCreationAttributes
