@@ -1,4 +1,5 @@
 import { DataTypes, ModelDefined, Sequelize, Op, QueryTypes } from 'sequelize';
+import { Request, Response } from 'express';
 import {
   Address,
   DayOfWeek,
@@ -61,62 +62,61 @@ const Cashier: ModelDefined<ICashierAttributes, ICashierCreationAttributes> =
   );
 
 class CashierTable {
-  async create(newCashier: ICashierAttributes) {
+  async create(req: Request, res: Response) {
+    const newCashier = req.body;
     const cashier = await Cashier.create(newCashier);
-    return console.log(cashier.toJSON());
+    return res.json(cashier);
   }
 
-  async getAllCashiersList() {
-    const cashiers = await Cashier.findAll({ attributes: ['name'] });
-    return console.log(cashiers.map((name) => name.toJSON()));
-  }
-
-  async getWorkingCashiersList() {
-    const cashiers = await Cashier.findAll({
+  async getOne(req: Request, res: Response) {
+    const id = req.params.id;
+    const cashier = await Cashier.findOne({
+      where: { id },
       attributes: ['name'],
-      where: { is_working_now: true },
     });
-    return console.log(cashiers.map((name) => name.toJSON()));
+    return res.json(cashier);
   }
 
-  async getOne(id: number) {
-    const cashier = await Cashier.findOne({ where: { id } });
-    return console.log(cashier?.toJSON());
+  async getFilteredCashiers(req: Request, res: Response) {
+    const params = req.query;
+    const cashiers = await Cashier.findAll({
+      where: params,
+      attributes: ['name'],
+    });
+    return res.json(cashiers);
   }
 
-  async getFilteredCashier(params: ICashierAttributes) {
-    const cashiers = await Cashier.findAll({ where: params });
-    return console.log(cashiers.map((name) => name.toJSON()));
-  }
-
-  async getTargetCashiers1() {
+  async getTargetCashiers1(req: Request, res: Response) {
     const cashiers = await sequelize.query(
       `SELECT * FROM cashier WHERE years_of_experience>5 AND ('Silpo'=any(previous_job) OR 'Arsen'=any(previous_job)) AND (shop_id=1 OR shop_id=2 OR 'Lviv, Shevchenko avenue, 2B'=any(previous_atb) OR 'Lviv, Shevchenko street, 100'=any(previous_atb))`,
       {
         type: QueryTypes.SELECT,
       }
     );
-    return console.log(cashiers);
+    return res.json(cashiers);
   }
 
-  async getTargetCashiers2() {
+  async getTargetCashiers2(req: Request, res: Response) {
     const cashiers = await sequelize.query(
       `SELECT * FROM cashier WHERE cash_register%2=1 AND shop_id=1 AND work_shedule='23:00 - 07:00' AND 'Monday'=any(work_days)`,
       {
         type: QueryTypes.SELECT,
       }
     );
-    return console.log(cashiers);
+    return res.json(cashiers);
   }
 
-  async updateCasier(id: number, updateData: ICashierAttributes) {
+  async updateCasier(req: Request, res: Response) {
+    const updateData = req.body;
+    const id = req.params.id;
     const cashier = await Cashier.update(updateData, { where: { id } });
-    return console.log('Success!');
+    return res.json({ message: 'Success!' });
   }
 
-  async delete(id: number) {
-    const cashier = await Cashier.destroy({ where: { id } });
-    return console.log(cashier);
+  async delete(req: Request, res: Response) {
+    const id = req.params.id;
+    await Cashier.destroy({ where: { id } });
+    return res.json({ message: 'Success!' });
   }
 }
 

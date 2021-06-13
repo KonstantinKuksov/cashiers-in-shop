@@ -13,9 +13,21 @@ import {
 const app: Application = express();
 const PORT = process.env.PORT || 5500;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello!');
-});
+app.use(express.json());
+
+app.get('/cashiers/get/:id', cashierTable.getOne);
+
+app.get('/cashiers/get', cashierTable.getFilteredCashiers);
+
+app.get('/cashiers/target1', cashierTable.getTargetCashiers1);
+
+app.get('/cashiers/target2', cashierTable.getTargetCashiers2);
+
+app.post('/cashiers/create', cashierTable.create);
+
+app.patch('/cashiers/update/:id', cashierTable.updateCasier);
+
+app.delete('/cashiers/delete/:id', cashierTable.delete);
 
 const start = async () => {
   try {
