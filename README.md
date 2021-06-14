@@ -6,7 +6,7 @@
 
 ### Database structure visualization
 
-<https://app.diagrams.net/#G1E15tOJBsDdLohRg-wp09nA36diKXhwXA>
+<https://drive.google.com/file/d/1E15tOJBsDdLohRg-wp09nA36diKXhwXA/view?usp=sharing>
 
 If you don't see this diagram you can sroll down and you will see the screenshot in the bottom of this file.
 
